@@ -1631,16 +1631,26 @@
     <div class="hero-img-frame">
       <!-- REEMPLAZA src con tu imagen principal -->
       <img src="portada.jpg.png" alt="Jean destacado" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="hero-img-placeholder">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="8" width="60" height="64" rx="4" stroke="#3D4F8C" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <circle cx="32" cy="30" r="8" stroke="#3D4F8C" stroke-width="1.5"/>
-          <path d="M10 52 L25 38 L40 50 L55 36 L70 52" stroke="#3D4F8C" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <p>Foto Principal<br>del Jean</p>
-      </div>
     </div>
-    <div class="hero-tag">✦ Nueva Colección</div>
+    <div style="position:absolute; bottom:40px; left:40px; right:40px; background:rgba(245,240,232,0.95); border-radius:8px; padding:24px 28px; box-shadow:0 8px 32px rgba(26,26,46,0.12);">
+  <div style="font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#B5622A; margin-bottom:8px;">✦ Destacado</div>
+  <div style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:#2C3A6E; margin-bottom:12px;">Pantalón Bota Sirena</div>
+  <div style="margin-bottom:14px;">
+    <span style="font-size:14px; color:#8A8AAA; text-decoration:line-through; font-family:'Cormorant Garamond',serif;">S/ 119.00</span>
+    <span style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:#B5622A; margin-left:8px;">S/ 99.00</span>
+    <span style="background:#B5622A; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:2px; margin-left:8px; letter-spacing:1px;">-17% OFF</span>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div style="font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#4A4A6A; margin-bottom:8px;">Tallas disponibles</div>
+    <div style="display:flex; gap:8px;">
+      <span style="width:36px;height:36px;border:1.5px solid #3D4F8C;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3D4F8C;">S</span>
+      <span style="width:36px;height:36px;border:1.5px solid #3D4F8C;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3D4F8C;">M</span>
+      <span style="width:36px;height:36px;border:1.5px solid #3D4F8C;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3D4F8C;">L</span>
+      <span style="width:36px;height:36px;border:1.5px solid #3D4F8C;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3D4F8C;">XL</span>
+    </div>
+  </div>
+  <button onclick="openSizeModal('Pantalón Bota Sirena','S/ 99.00',99,'PBS-001',['S','M','L','XL'])" style="width:100%;background:#2C3A6E;color:#F5F0E8;border:none;padding:13px;border-radius:3px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#B5622A'" onmouseout="this.style.background='#2C3A6E'">Agregar al carrito</button>
+</div>
   </div>
 </section>
 
