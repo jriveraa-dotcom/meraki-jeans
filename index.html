@@ -1530,6 +1530,85 @@
     .catalog { padding: 0 16px 60px; }
     .stats-band { padding: 20px 24px; gap: 0; }
   }
+
+  /* ── PRODUCT DETAIL PANEL ── */
+  .detail-overlay {
+    position: fixed; inset: 0;
+    background: rgba(26,26,46,0.6);
+    z-index: 800; opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+    backdrop-filter: blur(4px);
+  }
+  .detail-overlay.open { opacity: 1; pointer-events: all; }
+
+  .detail-panel {
+    position: fixed; top: 0; right: 0;
+    width: min(780px, 96vw); height: 100vh;
+    background: var(--cream); z-index: 850;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.32,0,0.67,0);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: -12px 0 60px rgba(26,26,46,0.2);
+  }
+  .detail-panel.open { transform: translateX(0); transition: transform 0.4s cubic-bezier(0.33,1,0.68,1); }
+
+  .detail-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px; border-bottom: 1px solid var(--cream-deeper);
+    flex-shrink: 0; background: var(--cream);
+  }
+  .detail-breadcrumb { font-size: 11px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .detail-breadcrumb span { color: var(--copper); }
+  .detail-close { background: none; border: none; cursor: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--text-mid); transition: background 0.2s; }
+  .detail-close:hover { background: var(--cream-deeper); color: var(--indigo); }
+
+  .detail-body { flex: 1; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; }
+
+  .detail-gallery { background: var(--cream-dark); display: flex; flex-direction: column; gap: 3px; }
+  .detail-main-img { flex: 1; min-height: 380px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .detail-main-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.5s; }
+  .detail-main-img:hover img { transform: scale(1.04); }
+  .detail-main-img .no-img { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--indigo-light); opacity: 0.35; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .detail-thumbs { display: flex; gap: 3px; padding: 3px; background: var(--cream-deeper); flex-shrink: 0; }
+  .detail-thumb { width: 66px; height: 66px; background: var(--cream-dark); flex-shrink: 0; cursor: none; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .detail-thumb.active { border-color: var(--copper); }
+  .detail-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .detail-badge { position: absolute; top: 14px; left: 14px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; z-index: 2; }
+
+  .detail-info { padding: 28px 28px 16px; overflow-y: auto; display: flex; flex-direction: column; }
+  .detail-info::-webkit-scrollbar { width: 3px; }
+  .detail-info::-webkit-scrollbar-thumb { background: var(--cream-deeper); }
+  .detail-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--copper); margin-bottom: 6px; }
+  .detail-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--indigo-dark); line-height: 1.2; margin-bottom: 4px; }
+  .detail-ref-text { font-size: 11px; color: var(--text-light); letter-spacing: 1px; margin-bottom: 14px; }
+  .detail-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+  .stars { color: var(--copper); font-size: 13px; letter-spacing: 2px; }
+  .rating-count { font-size: 12px; color: var(--text-light); }
+  .detail-price-block { padding: 14px 0; border-top: 1px solid var(--cream-deeper); border-bottom: 1px solid var(--cream-deeper); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .detail-price { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 700; color: var(--copper); }
+  .detail-price-old { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-light); text-decoration: line-through; }
+  .detail-discount { background: var(--copper); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 2px; }
+  .detail-section-title { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-mid); margin-bottom: 10px; }
+  .detail-colors { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .detail-color { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: none; }
+  .detail-color-dot { width: 30px; height: 30px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1.5px var(--cream-deeper); transition: box-shadow 0.2s; }
+  .detail-color.active .detail-color-dot { box-shadow: 0 0 0 2px var(--copper); }
+  .detail-color-name { font-size: 9px; color: var(--text-light); text-align: center; max-width: 46px; line-height: 1.3; }
+  .detail-sizes { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .detail-size { min-width: 48px; height: 40px; border: 1.5px solid var(--cream-deeper); background: var(--cream); border-radius: 3px; font-size: 11px; font-weight: 600; color: var(--text-mid); cursor: none; display: flex; align-items: center; justify-content: center; padding: 0 10px; transition: all 0.2s; }
+  .detail-size:hover { border-color: var(--indigo); color: var(--indigo); }
+  .detail-size.active { background: var(--indigo); border-color: var(--indigo); color: var(--cream); }
+  .detail-desc { font-size: 13px; line-height: 1.8; color: var(--text-mid); font-weight: 300; margin-bottom: 20px; }
+  .detail-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 20px; }
+  .detail-spec { background: var(--cream-dark); padding: 10px 12px; border-radius: 3px; }
+  .detail-spec-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); margin-bottom: 2px; }
+  .detail-spec-val { font-size: 12px; font-weight: 500; color: var(--indigo-dark); }
+  .detail-cta { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--cream-deeper); display: flex; flex-direction: column; gap: 8px; }
+  .detail-btn-add { background: var(--indigo); color: var(--cream); border: none; padding: 15px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: none; transition: background 0.25s; width: 100%; }
+  .detail-btn-add:hover { background: var(--copper); }
+  .detail-btn-wa { background: #25D366; color: #fff; border: none; padding: 13px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.25s; text-decoration: none; width: 100%; }
+  .detail-btn-wa:hover { background: #1db954; }
 </style>
 </head>
 <body>
@@ -1588,6 +1667,68 @@
     <div class="size-modal-actions">
       <button class="btn-add-confirm" onclick="confirmAddToCart()">Agregar al carrito</button>
       <button class="btn-modal-cancel" onclick="closeSizeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL PANEL -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-header">
+    <div class="detail-breadcrumb">
+      MERAKI <span>›</span> <span id="detailCrumb">Producto</span>
+    </div>
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+  </div>
+  <div class="detail-body">
+    <!-- Gallery -->
+    <div class="detail-gallery">
+      <div class="detail-main-img" id="detailMainImg">
+        <div class="no-img">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="36" height="36" rx="3" stroke-dasharray="3 2"/><circle cx="18" cy="18" r="5"/><path d="M6 32 L16 22 L26 30 L34 22 L42 30"/></svg>
+          <p>Sin imagen</p>
+        </div>
+      </div>
+      <div class="detail-thumbs" id="detailThumbs"></div>
+    </div>
+    <!-- Info -->
+    <div class="detail-info">
+      <div class="detail-brand">MERAKI Jeans</div>
+      <div class="detail-name" id="detailName">Jean Classic</div>
+      <div class="detail-ref-text" id="detailRef">REF: —</div>
+      <div class="detail-rating">
+        <div class="stars">★★★★★</div>
+        <div class="rating-count" id="detailRating">(0 reseñas)</div>
+      </div>
+      <div class="detail-price-block">
+        <div class="detail-price" id="detailPrice">S/ 0.00</div>
+        <div class="detail-price-old" id="detailPriceOld" style="display:none;"></div>
+        <div class="detail-discount" id="detailDiscount" style="display:none;"></div>
+      </div>
+      <!-- Colors -->
+      <div id="detailColorsSection">
+        <div class="detail-section-title">Color</div>
+        <div class="detail-colors" id="detailColors"></div>
+      </div>
+      <!-- Sizes -->
+      <div class="detail-section-title">Talla</div>
+      <div class="detail-sizes" id="detailSizes"></div>
+      <!-- Description -->
+      <div class="detail-section-title">Descripción</div>
+      <div class="detail-desc" id="detailDesc">—</div>
+      <!-- Specs -->
+      <div class="detail-section-title">Especificaciones</div>
+      <div class="detail-specs" id="detailSpecs"></div>
+      <!-- CTA -->
+      <div class="detail-cta">
+        <button class="detail-btn-add" id="detailBtnAdd" onclick="detailAddToCart()">
+          Agregar al carrito
+        </button>
+        <a href="#" class="detail-btn-wa" id="detailBtnWa" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -1716,7 +1857,7 @@
     <div class="product-grid">
 
       <!-- Card 1: FEATURED (grande) -->
-      <div class="product-card featured">
+      <div class="product-card featured" onclick="openDetail('jean-meraki-classic')">
         <div class="card-img">
           <!-- REEMPLAZA src con tu foto -->
           <img src="JEAN_1_FOTO.jpg" alt="Jean Modelo 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1728,8 +1869,8 @@
             <div class="overlay-name">Jean MERAKI<br>Tiro Alto</div>
             <div class="overlay-price">S/ 89.00</div>
             <div class="overlay-actions">
-              <button class="overlay-btn primary" onclick="openSizeModal('Jean MERAKI Classic','S/ 89.00',89,'IDG-001',['XS','S','M','L','XL'])">Agregar al carrito</button>
-              <button class="overlay-btn secondary">Ver detalle</button>
+              <button class="overlay-btn primary" onclick="event.stopPropagation(); openSizeModal('Jean MERAKI Classic','S/ 89.00',89,'IDG-001',['XS','S','M','L','XL'])">Agregar al carrito</button>
+              <button class="overlay-btn secondary" onclick="event.stopPropagation(); openDetail('jean-meraki-classic')">Ver detalle</button>
             </div>
           </div>
         </div>
@@ -2354,6 +2495,297 @@
   // ── INIT ──
   updateWhatsAppLink();
   document.getElementById('waFloat').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('¡Hola! Me gustaría conocer más sobre sus jeans 👖')}`;
+
+  // ── PRODUCTS DATABASE ──
+  // Agrega aquí tus productos. Copia el bloque para cada jean nuevo.
+  const PRODUCTS = {
+    'jean-meraki-classic': {
+      name: 'Jean MERAKI Classic',
+      ref: 'REF: IDG-001 · Tiro Alto · Skinny',
+      price: 'S/ 89.00',
+      priceNum: 89,
+      priceOld: null,
+      discount: null,
+      badge: null,
+      rating: '4.8 (124 reseñas)',
+      desc: 'Jean de corte skinny con tiro alto que realza y moldea la figura. Confeccionado en denim premium elastizado para máxima comodidad sin perder la forma durante todo el día.',
+      specs: [
+        { label: 'Material', val: 'Denim 97% + Elastano 3%' },
+        { label: 'Tiro', val: 'Alto' },
+        { label: 'Corte', val: 'Skinny' },
+        { label: 'Cierre', val: '1 botón + cremallera' },
+      ],
+      sizes: ['XS','S','M','L','XL'],
+      colors: [
+        { name: 'Azul MERAKI', hex: '#1a237e' },
+        { name: 'Negro Grafito', hex: '#263238' },
+        { name: 'Celeste Claro', hex: '#90caf9' },
+      ],
+      // Agrega hasta 4 fotos. Si no tienes, deja el array vacío []
+      images: ['JEAN_1_FOTO.jpg'],
+    },
+    'jean-cobre-wide-leg': {
+      name: 'Jean Cobre Wide Leg',
+      ref: 'REF: CBR-002 · Tiro Medio · Wide Leg',
+      price: 'S/ 95.00',
+      priceNum: 95,
+      priceOld: null,
+      discount: null,
+      badge: 'Edición Limitada',
+      rating: '4.6 (89 reseñas)',
+      desc: 'Pantalón de pierna ancha con un tiro medio que equilibra la silueta. Su diseño contemporáneo lo hace ideal para looks casuales y semi-formales.',
+      specs: [
+        { label: 'Material', val: 'Denim Premium' },
+        { label: 'Tiro', val: 'Medio' },
+        { label: 'Corte', val: 'Wide Leg' },
+        { label: 'Cierre', val: '1 botón' },
+      ],
+      sizes: ['S','M','L'],
+      colors: [
+        { name: 'Cobre', hex: '#b5622a' },
+        { name: 'Índigo', hex: '#3D4F8C' },
+      ],
+      images: ['JEAN_2_FOTO.jpg'],
+    },
+    'jean-cream-mom-fit': {
+      name: 'Jean Cream Mom Fit',
+      ref: 'REF: CRM-003 · Tiro Alto · Mom Fit',
+      price: 'S/ 79.00',
+      priceNum: 79,
+      priceOld: 'S/ 99.00',
+      discount: '-20% OFF',
+      badge: '-20% OFF',
+      rating: '4.9 (203 reseñas)',
+      desc: 'El clásico mom jean reinventado. Tiro alto y pierna recta con un toque relaxed que se adapta a todos los estilos. Perfecto para el día a día.',
+      specs: [
+        { label: 'Material', val: 'Denim Rígido' },
+        { label: 'Tiro', val: 'Alto' },
+        { label: 'Corte', val: 'Mom Fit' },
+        { label: 'Cierre', val: '5 botones' },
+      ],
+      sizes: ['XS','S','M'],
+      colors: [
+        { name: 'Crema', hex: '#EDE6D6' },
+        { name: 'Blanco', hex: '#f5f5f5' },
+      ],
+      images: ['JEAN_3_FOTO.jpg'],
+    },
+    'jean-bootcut-premium': {
+      name: 'Jean Bootcut Premium',
+      ref: 'REF: BTC-004 · Tiro Alto · Bootcut',
+      price: 'S/ 105.00',
+      priceNum: 105,
+      priceOld: null,
+      discount: null,
+      badge: 'Nuevo',
+      rating: '5.0 (47 reseñas)',
+      desc: 'Corte bootcut de tiro alto que estiliza la figura y visualmente alarga las piernas. Ideal para combinar con botas o tacones.',
+      specs: [
+        { label: 'Material', val: 'Denim Stretch' },
+        { label: 'Tiro', val: 'Alto' },
+        { label: 'Corte', val: 'Bootcut' },
+        { label: 'Cierre', val: '1 botón' },
+      ],
+      sizes: ['S','M','L','XL'],
+      colors: [
+        { name: 'Azul Índigo', hex: '#1a237e' },
+        { name: 'Marrón', hex: '#5d4037' },
+      ],
+      images: ['JEAN_4_FOTO.jpg'],
+    },
+    'jean-skinny-rotura': {
+      name: 'Jean Skinny Rotura',
+      ref: 'REF: SKR-005 · Tiro Medio · Skinny',
+      price: 'S/ 85.00',
+      priceNum: 85,
+      priceOld: null,
+      discount: null,
+      badge: 'Tendencia',
+      rating: '4.7 (156 reseñas)',
+      desc: 'Jean skinny con detalles de rotura en las rodillas. Estilo urbano y desenfadado para las que se atreven con las tendencias.',
+      specs: [
+        { label: 'Material', val: 'Denim Elastizado' },
+        { label: 'Tiro', val: 'Medio' },
+        { label: 'Corte', val: 'Skinny' },
+        { label: 'Detalle', val: 'Roturas en rodillas' },
+      ],
+      sizes: ['XS','S','M','L'],
+      colors: [
+        { name: 'Azul Claro', hex: '#5c8bc7' },
+        { name: 'Negro', hex: '#111' },
+      ],
+      images: ['JEAN_5_FOTO.jpg'],
+    },
+    'jean-vintage-boyfriend': {
+      name: 'Jean Vintage Boyfriend',
+      ref: 'REF: VBF-006 · Tiro Bajo · Boyfriend',
+      price: 'S/ 92.00',
+      priceNum: 92,
+      priceOld: null,
+      discount: null,
+      badge: 'Últimas Unidades',
+      rating: '4.5 (78 reseñas)',
+      desc: 'Jean boyfriend de corte relaxed con acabado vintage. Cómodo, versátil y con un estilo retro que nunca pasa de moda.',
+      specs: [
+        { label: 'Material', val: 'Denim Lavado' },
+        { label: 'Tiro', val: 'Bajo' },
+        { label: 'Corte', val: 'Boyfriend' },
+        { label: 'Acabado', val: 'Vintage lavado' },
+      ],
+      sizes: ['S','M','L'],
+      colors: [
+        { name: 'Vintage Azul', hex: '#7986cb' },
+        { name: 'Gris Vintage', hex: '#90a4ae' },
+      ],
+      images: ['JEAN_6_FOTO.jpg'],
+    },
+  };
+
+  // ── DETAIL PANEL LOGIC ──
+  let currentDetailProduct = null;
+  let detailSelectedSize = null;
+  let detailSelectedColor = null;
+
+  function openDetail(productId) {
+    const p = PRODUCTS[productId];
+    if (!p) return;
+    currentDetailProduct = { ...p, id: productId };
+    detailSelectedSize = null;
+    detailSelectedColor = null;
+
+    // Breadcrumb
+    document.getElementById('detailCrumb').textContent = p.name;
+
+    // Name / ref
+    document.getElementById('detailName').textContent = p.name;
+    document.getElementById('detailRef').textContent = p.ref;
+    document.getElementById('detailRating').textContent = '(' + p.rating + ')';
+
+    // Price
+    document.getElementById('detailPrice').textContent = p.price;
+    const oldEl = document.getElementById('detailPriceOld');
+    const discEl = document.getElementById('detailDiscount');
+    if (p.priceOld) { oldEl.textContent = p.priceOld; oldEl.style.display = 'block'; } else { oldEl.style.display = 'none'; }
+    if (p.discount) { discEl.textContent = p.discount; discEl.style.display = 'block'; } else { discEl.style.display = 'none'; }
+
+    // Colors
+    const colorsEl = document.getElementById('detailColors');
+    colorsEl.innerHTML = '';
+    p.colors.forEach((c, i) => {
+      const div = document.createElement('div');
+      div.className = 'detail-color' + (i === 0 ? ' active' : '');
+      div.innerHTML = `<div class="detail-color-dot" style="background:${c.hex};"></div><div class="detail-color-name">${c.name}</div>`;
+      div.onclick = () => {
+        document.querySelectorAll('.detail-color').forEach(el => el.classList.remove('active'));
+        div.classList.add('active');
+        detailSelectedColor = c.name;
+      };
+      colorsEl.appendChild(div);
+      if (i === 0) detailSelectedColor = c.name;
+    });
+
+    // Sizes
+    const sizesEl = document.getElementById('detailSizes');
+    sizesEl.innerHTML = '';
+    p.sizes.forEach(sz => {
+      const btn = document.createElement('button');
+      btn.className = 'detail-size';
+      btn.textContent = sz;
+      btn.onclick = () => {
+        document.querySelectorAll('.detail-size').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        detailSelectedSize = sz;
+      };
+      sizesEl.appendChild(btn);
+    });
+
+    // Description
+    document.getElementById('detailDesc').textContent = p.desc;
+
+    // Specs
+    const specsEl = document.getElementById('detailSpecs');
+    specsEl.innerHTML = '';
+    p.specs.forEach(s => {
+      specsEl.innerHTML += `<div class="detail-spec"><div class="detail-spec-label">${s.label}</div><div class="detail-spec-val">${s.val}</div></div>`;
+    });
+
+    // Gallery
+    const mainImg = document.getElementById('detailMainImg');
+    const thumbsEl = document.getElementById('detailThumbs');
+    mainImg.innerHTML = '';
+    thumbsEl.innerHTML = '';
+
+    if (p.images && p.images.length > 0) {
+      const img = document.createElement('img');
+      img.src = p.images[0];
+      img.alt = p.name;
+      img.onerror = () => { mainImg.innerHTML = '<div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="36" height="36" rx="3" stroke-dasharray="3 2"/><circle cx="18" cy="18" r="5"/><path d="M6 32 L16 22 L26 30 L34 22 L42 30"/></svg><p>Agrega tu foto</p></div>'; };
+      mainImg.appendChild(img);
+      p.images.forEach((src, i) => {
+        const t = document.createElement('div');
+        t.className = 'detail-thumb' + (i === 0 ? ' active' : '');
+        t.innerHTML = `<img src="${src}" alt="Vista ${i+1}" onerror="this.parentElement.innerHTML='👖'">`;
+        t.onclick = () => {
+          document.querySelectorAll('.detail-thumb').forEach(el => el.classList.remove('active'));
+          t.classList.add('active');
+          img.src = src;
+        };
+        thumbsEl.appendChild(t);
+      });
+    } else {
+      mainImg.innerHTML = '<div class="no-img"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="36" height="36" rx="3" stroke-dasharray="3 2"/><circle cx="18" cy="18" r="5"/><path d="M6 32 L16 22 L26 30 L34 22 L42 30"/></svg><p>Agrega tu foto</p></div>';
+      thumbsEl.innerHTML = '<div class="detail-thumb active">👖</div>';
+    }
+
+    // WA link
+    const waMsg = encodeURIComponent(`¡Hola! Me interesa el *${p.name}* (${p.ref}) a ${p.price}. ¿Está disponible?`);
+    document.getElementById('detailBtnWa').href = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+
+    // Open
+    document.getElementById('detailOverlay').classList.add('open');
+    document.getElementById('detailPanel').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    document.getElementById('detailPanel').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function detailAddToCart() {
+    if (!currentDetailProduct) return;
+    if (!detailSelectedSize) {
+      const sizesEl = document.getElementById('detailSizes');
+      sizesEl.style.outline = '2px solid #B5622A';
+      sizesEl.style.borderRadius = '4px';
+      setTimeout(() => { sizesEl.style.outline = ''; }, 1200);
+      return;
+    }
+    addToCart(currentDetailProduct.name, currentDetailProduct.price, currentDetailProduct.priceNum, currentDetailProduct.ref, detailSelectedSize);
+    closeDetail();
+  }
+
+  // Make cards 2-6 clickable too
+  document.addEventListener('DOMContentLoaded', () => {
+    const cardMap = [
+      { idx: 1, id: 'jean-cobre-wide-leg' },
+      { idx: 2, id: 'jean-cream-mom-fit' },
+      { idx: 3, id: 'jean-bootcut-premium' },
+      { idx: 4, id: 'jean-skinny-rotura' },
+      { idx: 5, id: 'jean-vintage-boyfriend' },
+    ];
+    const cards = document.querySelectorAll('.product-card:not(.featured)');
+    cardMap.forEach(({ idx, id }) => {
+      if (cards[idx - 1]) {
+        cards[idx - 1].addEventListener('click', (e) => {
+          if (!e.target.closest('button')) openDetail(id);
+        });
+        const secBtns = cards[idx - 1].querySelectorAll('.overlay-btn.secondary');
+        secBtns.forEach(b => { b.onclick = (e) => { e.stopPropagation(); openDetail(id); }; });
+      }
+    });
+  });
 </script>
 </body>
 </html>
